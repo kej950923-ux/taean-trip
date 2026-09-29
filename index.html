@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반석카르텔 추계 태안 여행</title>
+<style>
+  :root{
+    --green:#315c46; --green2:#edf4ef; --ink:#202722;
+    --muted:#6f7972; --line:#e7ebe7; --cream:#fafbf9;
+    --orange:#e48a45; --red:#c94b4b; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:#fff;color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Malgun Gothic",sans-serif;
+  }
+  button{font:inherit}
+  .cover{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:28px;background:#fff;
+  }
+  .cover-card{
+    width:min(650px,100%);text-align:center;padding:55px 24px;
+    background:#fff;
+  }
+  .eyebrow{
+    font-size:13px;letter-spacing:.18em;color:#9aa39d;font-weight:800;
+    min-height:20px;
+  }
+  h1{
+    font-size:clamp(38px,9vw,68px);line-height:1.12;margin:22px 0 14px;
+    color:var(--green);font-weight:900;min-height:152px;
+  }
+  .typing-cursor{
+    display:inline-block;width:3px;height:.9em;background:var(--green);
+    margin-left:4px;vertical-align:-.08em;animation:blink .8s infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+  .cover-sub{font-size:17px;color:var(--muted);margin:5px 0 34px}
+  .enter{
+    border:0;background:var(--green);color:#fff;border-radius:12px;
+    padding:14px 28px;font-weight:800;cursor:pointer;
+  }
+  .enter:hover{opacity:.9}
+  .site{display:none;max-width:920px;margin:auto;padding:0 18px 60px}
+  .site.active{display:block}
+  header.top{
+    position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  }
+  .top-inner{
+    max-width:920px;margin:auto;padding:14px 18px 10px;
+  }
+  .top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{font-weight:900;color:var(--green);font-size:15px}
+  .home-btn{
+    border:1px solid var(--line);background:#fff;border-radius:9px;
+    padding:7px 11px;cursor:pointer;color:#566159;font-size:13px;
+  }
+  .tabs{
+    display:flex;gap:5px;overflow-x:auto;padding:12px 0 2px;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;border:1px solid var(--line);background:#fff;
+    color:#7b847d;border-radius:9px;padding:8px 12px;cursor:pointer;
+    font-size:13px;font-weight:700;transition:.2s;
+  }
+  .tab.active{background:var(--green);border-color:var(--green);color:#fff}
+  .hero-title{padding:34px 2px 16px}
+  .hero-title h2{font-size:29px;margin:0 0 8px;color:var(--green)}
+  .hero-title p{margin:0;color:var(--muted);font-size:14px}
+  .progress{display:flex;gap:5px;margin:4px 0 22px}
+  .dot{height:4px;flex:1;background:#e7ebe7;border-radius:10px}
+  .dot.on{background:var(--green)}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:22px;margin:14px 0;box-shadow:0 4px 18px rgba(40,60,45,.04);
+  }
+  .section-title{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:20px}
+  .num{
+    width:30px;height:30px;border-radius:8px;background:var(--green2);
+    display:grid;place-items:center;color:var(--green);font-weight:900;font-size:14px;
+  }
+  .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .info{background:var(--cream);border-radius:11px;padding:13px}
+  .label{font-size:11px;color:#879088;font-weight:700;margin-bottom:4px}
+  .value{font-weight:800}
+  .muted{color:var(--muted);font-size:14px;line-height:1.6}
+  .note{background:#fff8f1;border-left:3px solid var(--orange);padding:11px 13px;border-radius:8px;line-height:1.55}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{padding:7px 11px;border-radius:8px;background:#f3f6f3;font-weight:700;font-size:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:12px 9px;border-bottom:1px solid #eef0ee;text-align:left;vertical-align:top}
+  th{color:#707a73;background:#fafbfa}
+  .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+  .menu{padding:14px;border-radius:11px;background:#fafbf9;border:1px solid var(--line)}
+  .menu b{display:block;margin-bottom:4px}
+  .checklist{display:grid;gap:8px}
+  .check{display:flex;align-items:center;gap:10px;padding:12px;background:#f7f9f7;border-radius:10px}
+  .check input{width:18px;height:18px;accent-color:var(--green)}
+  .salt{
+    margin-top:13px;background:#fff0f0;border:1px solid #f0cccc;color:#bd4141;
+    font-weight:900;text-align:center;padding:14px;border-radius:10px;
+  }
+  .footer-nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+  .navbtn{
+    flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;
+    padding:12px;font-weight:800;cursor:pointer;color:#59635c;
+  }
+  .navbtn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+  .navbtn:disabled{opacity:.35;cursor:default}
+  .page{display:none}.page.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
+  @media(max-width:600px){
+    .info-grid,.menu-grid{grid-template-columns:1fr}
+    .card{padding:18px}
+    table{font-size:13px}
+    th,td{padding:10px 6px}
+    h1{min-height:120px}
+  }
+</style>
+</head>
+<body>
+
+<section class="cover" id="cover">
+  <div class="cover-card">
+    <div class="eyebrow">2026 AUTUMN TRIP</div>
+    <h1 id="typingTitle"><span class="typing-cursor"></span></h1>
+    <div class="cover-sub">먹고 · 놀고 · 캠핑하고 · 좋은 추억 만들기 🏕️</div>
+    <button class="enter" onclick="startTrip()">여행 일정 보기 →</button>
+  </div>
+</section>
+
+<div id="app" style="display:none">
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">반석카르텔 · 태안</div>
+    <button class="home-btn" onclick="goCover()">첫 화면</button>
+  </div>
+</header>
+
+<main class="site" style="display:block">
+  <div class="hero-title">
+    <h2>🏕️ 여행 일정 & 준비사항</h2>
+    <p>아래 버튼을 눌러 하나씩 확인해 주세요.</p>
+  </div>
+  <div class="progress" id="progress"></div>
+
+  <section class="page active" data-page="0">
+    <div class="card">
+      <h3 class="section-title"><span class="num">1</span> 캠핑장</h3>
+      <div class="info-grid">
+        <div class="info"><div class="label">캠핑장</div><div class="value">솔향기길 캠핑장</div></div>
+        <div class="info"><div class="label">사이트</div><div class="value">B5 · 2박 / B6 · 1박</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="section-title"><span class="num">2</span> 해루질</h3>
+      <div class="info-grid">
+        <div class="info"><div class="label">장소 & 집결지</div><div class="value">진산리 어촌계</div></div>
+        <div class="info"><div class="label">집결 시간</div><div class="value">오전 10:00</div></div>
+      </div>
+      <p class="muted">간조가 12:00라서 간조 2시간 전인 10시에 집결합니다.</p>
+      <div class="note">🧹 해루질 후 <b>12:00~12:30 철수 및 정리</b></div>
+    </div>
+  </section>
+
+  <section class="page" data-page="1">
+    <div class="card">
+      <h3 class="section-title"><span class="num">3</span> 해산물 구매</h3>
+      <p><b>진산리 어촌계 → 몽산포 어촌계 수산물 직판장</b></p>
+      <p class="muted">구매할 해산물</p>
+      <div class="chips"><span class="chip">🦀 꽃게</span><span class="chip">🦐 대하</span><span class="chip">🐚 바지락</span></div>
+    </div>
+    <div class="card">
+      <h3 class="section-title"><span class="num">4</span> 점심식사</h3>
+      <div class="info-grid">
+        <div class="info"><div class="label">메뉴</div><div class="value">바지락칼국수</div></div>
+        <div class="info"><div class="label">가게</div><div class="value">등나무칼국수</div></div>
+      </div>
+      <p class="muted">아직 가보지 않은 곳인데 위치가 좋아서 일단 잡아봤어요! 더 좋은 의견 있으면 주세요 🙌</p>
+    </div>
+  </section>
+
+  <section class="page" data-page="2">
+    <div class="card">
+      <h3 class="section-title"><span class="num">5</span> 장보기</h3>
+      <p class="muted">점심식사 후 캠핑장으로 이동하면서 하나로마트에 들러 간단하게 장보기!</p>
+      <div class="chips">
+        <span class="chip">마늘</span><span class="chip">마요네즈</span><span class="chip">술 🍻</span>
+        <span class="chip">과자</span><span class="chip">쿠킹호일</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="section-title"><span class="num">6</span> 캠핑장 도착 후 역할분담</h3>
+      <table>
+        <thead><tr><th>담당</th><th>할 일</th></tr></thead>
+        <tbody>
+          <tr><td><b>은지 + 민우</b></td><td>B5 사이트 텐트 피칭</td></tr>
+          <tr><td><b>임탁 + 희성</b></td><td>B6 사이트 텐트 피칭</td></tr>
+          <tr><td><b>유진 + 다연</b></td><td>장 본 물건 정리 + 의자 등 캠핑장 셋팅</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="page" data-page="3">
+    <div class="card">
+      <h3 class="section-title">🔥 캠핑 저녁 메뉴</h3>
+      <div class="menu-grid">
+        <div class="menu"><b>① 🦐 새우</b><span class="muted">생새우회, 버터구이 등</span></div>
+        <div class="menu"><b>② 🍢 염통꼬치</b></div>
+        <div class="menu"><b>③ 🥩 코스트코 꽃갈비</b></div>
+        <div class="menu"><b>④ 🐚 바지락술찜</b></div>
+        <div class="menu"><b>⑤ 🦀 꽃게요리</b><span class="muted">⭐ 마요 강추!!</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="section-title">🧺 각 팀이 준비할 것</h3>
+      <table>
+        <thead><tr><th>팀</th><th>준비할 것</th></tr></thead>
+        <tbody>
+          <tr><td><b>희성 + 유진</b></td><td>꽃갈비 / <b>염통꼬치</b></td></tr>
+          <tr><td><b>임탁 + 다연</b></td><td>묵은지 / 김</td></tr>
+          <tr><td><b>은지 + 민우</b></td><td>허브솔트 / 릴선 / 식용유 / 버터</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="page" data-page="4">
+    <div class="card">
+      <h3 class="section-title">🎒 각자 개인 준비물</h3>
+      <div class="checklist">
+        <label class="check"><input type="checkbox"> 침구류</label>
+        <label class="check"><input type="checkbox"> 장판</label>
+        <label class="check"><input type="checkbox"> 의자</label>
+      </div>
+      <div class="salt">🧂 맛소금!!!!!!!!!!!!!!!!!!!!!!!!<br><small>진짜 중요함. 각자 꼭 챙겨주세요 😂</small></div>
+    </div>
+    <div class="card">
+      <h3 class="section-title">✅ 출발 전 최종 체크</h3>
+      <p class="muted">해루질 준비물, 개인 짐, 팀별 준비물을 한 번씩 확인하고 출발하기!</p>
+    </div>
+  </section>
+
+  <div class="footer-nav">
+    <button class="navbtn" id="prev" onclick="move(-1)">← 이전</button>
+    <button class="navbtn primary" id="next" onclick="move(1)">다음 →</button>
+  </div>
+</main>
+</div>
+
+<script>
+let current=0;
+const pages=[...document.querySelectorAll('.page')];
+const tabs=[...document.querySelectorAll('.tab')];
+const dots=document.getElementById('progress');
+
+function typeTitle(){
+  const target="반석카르텔\n추계 태안 여행";
+  const el=document.getElementById('typingTitle');
+  let i=0;
+  el.innerHTML="";
+  const cursor=document.createElement("span");
+  cursor.className="typing-cursor";
+  function tick(){
+    if(i<target.length){
+      const ch=target[i++];
+      if(ch==="\n") el.appendChild(document.createElement("br"));
+      else el.appendChild(document.createTextNode(ch));
+      el.appendChild(cursor);
+      setTimeout(tick,85);
+    } else {
+      setTimeout(()=>cursor.style.display="none",900);
+    }
+  }
+  tick();
+}
+typeTitle();
+
+function startTrip(){
+  document.getElementById('cover').style.display='none';
+  document.getElementById('app').style.display='block';
+  current=0;
+  render();
+}
+function goCover(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('cover').style.display='flex';
+  typeTitle();
+}
+function showPage(i){
+  current=i;
+  render();
+}
+function render(){
+  pages.forEach((p,i)=>p.classList.toggle('active',i===current));
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===current));
+  if(dots) dots.innerHTML=pages.map((_,i)=>`<span class="dot ${i<=current?'on':''}"></span>`).join('');
+  const prev=document.getElementById('prev');
+  const next=document.getElementById('next');
+  if(prev){
+    prev.disabled=current===0;
+    prev.textContent="← 이전";
+    next.textContent=current===pages.length-1?"처음으로 ↺":"다음 →";
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function move(n){
+  if(current===pages.length-1 && n>0){current=0;}
+  else current=Math.max(0,Math.min(pages.length-1,current+n));
+  render();
+}
+render();
+</script>
+</body>
+</html>
